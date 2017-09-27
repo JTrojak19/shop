@@ -1,14 +1,15 @@
 <?php
+$mysqli = new mysqli('localhost', 'root', 'coderslab', 'shop');
 class Item 
 {
-    public $id; 
-    public $name; 
-    public $description; 
-    public $price; 
-    public $amount; 
+    private $id; 
+    private $name; 
+    private $description; 
+    private $price; 
+    private $amount; 
     
     public function __construct() {
-        $this->id = 0;
+        $this->id = -1;
         $this->name = "";
         $this->description = ""; 
         $this->price = 0; 
@@ -41,4 +42,24 @@ class Item
     public function getAmount() {
         return $this->amount; 
     }
+    public function saveToDB(mysqli $connection) {
+        
+        if ($this->id == -1) {
+            $sql = "INSERT INTO products(name, amount, price, description) VALUES('$this->name', '$this->amount', '$this->price', '$this->description')"; 
+            $result = $connection->query($sql); 
+            
+            if ($result == true) {
+                $this->id = $connection->insert_id; 
+                return true; 
+            }
+            return false; 
+        }
+    }
 }
+$item = new Item(); 
+$item->setName('kosiarka'); 
+$item->setAmount(10); 
+$item->setPrice(100); 
+$item->setDescription('Taka sobie kosiarka'); 
+var_dump($item->saveToDB($mysqli)); 
+var_dump($item); 
