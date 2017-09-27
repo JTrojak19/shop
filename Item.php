@@ -55,11 +55,26 @@ class Item
             return false; 
         }
     }
+    public function loadAllItems(mysqli $connection) {
+        $sql = "SELECT * FROM products"; 
+        $ret = []; 
+        $result = $connection->query($sql); 
+        
+        if ($result == true && $result->num_rows != 0) {
+            
+            foreach ($result as $row) {
+                
+                $loadedItem = new Item(); 
+                $loadedItem->id = $row['id']; 
+                $loadedItem->name = $row['name']; 
+                $loadedItem->amount = $row['amount']; 
+                $loadedItem->price = $row['price']; 
+                $loadedItem->description = $row['description']; 
+                
+                $ret[] = $loadedItem; 
+            }
+        }
+        return $ret; 
+    }
 }
-$item = new Item(); 
-$item->setName('kosiarka'); 
-$item->setAmount(10); 
-$item->setPrice(100); 
-$item->setDescription('Taka sobie kosiarka'); 
-var_dump($item->saveToDB($mysqli)); 
-var_dump($item); 
+
