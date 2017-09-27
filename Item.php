@@ -1,5 +1,5 @@
 <?php
-$mysqli = new mysqli('localhost', 'root', 'coderslab', 'shop');
+
 class Item 
 {
     private $id; 
@@ -75,6 +75,19 @@ class Item
             }
         }
         return $ret; 
+    }
+    public function deleteItem(mysqli $connection) {
+        
+        if ($this->id != 1) {
+            $sql = "DELETE FROM products WHERE id= $this->id"; 
+            $result = $connection->query($sql); 
+            if ($result == true) {
+                $this->id = -1; 
+                return true; 
+            }
+            return false; 
+        }
+        return true; 
     }
 }
 
