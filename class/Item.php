@@ -108,9 +108,4 @@ class Item
     }
     
 }
-$item = new Item(); 
-$item->setName('lampa'); 
-$item->setAmount(9); 
-$item->setPrice(50); 
-$item->setDescription('lampa jaka jest każdy widzi'); 
-$item->saveToDB($mysqli); 
+
