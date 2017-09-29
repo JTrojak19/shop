@@ -1,5 +1,5 @@
 <?php
-
+include "/home/joanna/Workspace/shop/config.php"; 
 class Item 
 {
     private $id; 
@@ -55,7 +55,7 @@ class Item
             return false; 
         }
     }
-    public function loadAllItems(mysqli $connection) {
+     public function loadAllItems(mysqli $connection) {
         $sql = "SELECT * FROM products"; 
         $ret = []; 
         $result = $connection->query($sql); 
@@ -76,7 +76,7 @@ class Item
         }
         return $ret; 
     }
-    public function deleteItem(mysqli $connection) {
+     public function deleteItem(mysqli $connection) {
         
         if ($this->id != 1) {
             $sql = "DELETE FROM products WHERE id= $this->id"; 
@@ -89,6 +89,28 @@ class Item
         }
         return true; 
     }
+    public function loadItemByName(mysqli $connection, $name) {
+        $sql = "SELECT * FROM products WHERE name=$this->name"; 
+        $result = $connection->query($sql); 
+        
+        if ($result == true && $result->num_rows == 1) {
+            $row = $result->fetch_assoc(); 
+            $loadedItem = new Item(); 
+            $loadedItem->id = $row['id']; 
+            $loadedItem->name = $row['name']; 
+            $loadedItem->amount = $row['amount']; 
+            $loadedItem->price = $row['price']; 
+            $loadedItem->description = $row['description']; 
+            
+            return $loadedItem; 
+        }
+        return null; 
+    }
     
 }
-
+$item = new Item(); 
+$item->setName('lampa'); 
+$item->setAmount(9); 
+$item->setPrice(50); 
+$item->setDescription('lampa jaka jest każdy widzi'); 
+$item->saveToDB($mysqli); 

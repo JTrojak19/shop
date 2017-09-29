@@ -1,6 +1,6 @@
 <?php
-include "config.php";
-include 'class/Item.php';
+include "/home/joanna/Workspace/shop/config.php";
+include '/home/joanna/Workspace/shop/class/Item.php';
 ?>
 <!DOCTYPE>
 <html>
@@ -11,9 +11,13 @@ include 'class/Item.php';
     </head>
     <body>
         <h1>Products</h1>
-        <table>
-            
-        </table>
+
+           <?php
+           $products = new Item(); 
+           $allproducts =$products->loadAllItems($mysqli);
+           var_dump($allproducts); 
+           ?>
+
     </body>
 </html>
 
