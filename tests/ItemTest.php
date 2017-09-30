@@ -41,7 +41,6 @@ class ItemTest extends TestCase
         $item->setDescription('cos tam'); 
         $item->saveToDB(new mysqli('localhost', 'root', 'coderslab', 'shop_tests')); 
         $item->loadAllItems(new mysqli('localhost', 'root', 'coderslab', 'shop_tests')); 
-        $this->assertNotEmpty($item); 
         $this->assertInstanceOf(Item::class, $item); 
         $this->assertNotEmpty($item); 
         $this->assertArrayHasKey(0, $item->loadAllItems(new mysqli('localhost', 'root', 'coderslab', 'shop_tests'))); 

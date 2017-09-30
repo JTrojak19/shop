@@ -88,24 +88,6 @@ class Item
             return false; 
         }
         return true; 
-    }
-    public function loadItemByName(mysqli $connection, $name) {
-        $sql = "SELECT * FROM products WHERE name=$this->name"; 
-        $result = $connection->query($sql); 
-        
-        if ($result == true && $result->num_rows == 1) {
-            $row = $result->fetch_assoc(); 
-            $loadedItem = new Item(); 
-            $loadedItem->id = $row['id']; 
-            $loadedItem->name = $row['name']; 
-            $loadedItem->amount = $row['amount']; 
-            $loadedItem->price = $row['price']; 
-            $loadedItem->description = $row['description']; 
-            
-            return $loadedItem; 
-        }
-        return null; 
-    }
-    
+    }   
 }
 
