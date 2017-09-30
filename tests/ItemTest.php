@@ -6,7 +6,7 @@ use PHPUnit\DbUnit\TestCaseTrait;
 class ItemTest extends TestCase 
 {
     use TestCaseTrait;
-    protected function getConnection() {
+    public function getConnection() {
        $pdo = new PDO(
        'mysql:dbname=shop_tests;host=localhost',
        'root',
@@ -15,7 +15,10 @@ class ItemTest extends TestCase
      return $this->createDefaultDBConnection($pdo, 'shop_tests');
     }
 
-    protected function getDataSet() {
-        
+    public function getDataSet() {
+        return $this->createXMLDataSet('/home/joanna/Workspace/shop/dataset.xml');
+    }
+    public function testShouldCreateItem() {
+        $this->assertEquals(1, $this->getConnection()->getRowCount('products')); 
     }
 }
