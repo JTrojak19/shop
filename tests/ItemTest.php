@@ -47,4 +47,15 @@ class ItemTest extends TestCase
         $this->assertArrayHasKey(0, $item->loadAllItems(new mysqli('localhost', 'root', 'coderslab', 'shop_tests'))); 
        $this->assertInternalType("array", $item->loadAllItems(new mysqli('localhost', 'root', 'coderslab', 'shop_tests'))); 
     }
+    public function testShouldDeleteItem() {
+        $item = new Item(); 
+        $item->setName('cos cos'); 
+        $item->setAmount(9); 
+        $item->setPrice(2); 
+        $item->setDescription('opis'); 
+        $item->saveToDB(new mysqli('localhost', 'root', 'coderslab', 'shop_tests')); 
+        $this->assertEquals(2, $this->getConnection()->getRowCount('products'));
+        $item->deleteItem(new mysqli('localhost', 'root', 'coderslab', 'shop_tests')); 
+        $this->assertEquals(1, $this->getConnection()->getRowCount('products')); 
+    }
 }
