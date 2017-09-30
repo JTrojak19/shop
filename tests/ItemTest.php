@@ -19,6 +19,19 @@ class ItemTest extends TestCase
         return $this->createXMLDataSet('/home/joanna/Workspace/shop/dataset.xml');
     }
     public function testShouldCreateItem() {
-        $this->assertEquals(1, $this->getConnection()->getRowCount('products')); 
+        $this->assertEquals(1, $this->getConnection()->getRowCount('products'));
+        $item = new Item();
+        $this->assertInstanceof(Item::class, $item);
+        $item->setName('płytki'); 
+        $this->assertEquals('płytki', $item->getName()); 
+        $item->setAmount(10); 
+        $this->assertEquals(10, $item->getAmount()); 
+        $item->setPrice(12); 
+        $this->assertEquals(12, $item->getPrice()); 
+        $item->setDescription('śliskie'); 
+        $this->assertEquals('śliskie', $item->getDescription()); 
+        $item->saveToDB(new mysqli('localhost', 'root', 'coderslab', 'shop_tests')); 
+        $this->assertEquals(2, $this->getConnection()->getRowCount('products')); 
+        
     }
 }
